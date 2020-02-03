@@ -19,3 +19,4 @@ class PresidentialCandidates::Candidate
         [candidate_1, candidate_2]
     end
 end
+end 
