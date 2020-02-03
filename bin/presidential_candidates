@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require './lib/presidential_candidates'
+
+PresidentialCandidates::CLI.new.call
