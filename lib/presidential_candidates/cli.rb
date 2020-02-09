@@ -7,6 +7,9 @@ class PresidentialCandidates::CLI
 
     def list_candidates
         @candidates = PresidentialCandidates::Candidate.list
+        @candidates.each.with_index(1) do |candidate, i|
+            puts "#{i}. #{candidate.name} - #{candidate.party}"
+        end
     end
 
     def menu
@@ -15,12 +18,10 @@ class PresidentialCandidates::CLI
         puts "Enter the number of the candidate you would like to learn about, list to view candidates, or type exit to quit:"
 
         input = gets.strip.downcase
-            case input
-            when "1"
-                puts "More info on candidate 1 ..."
-            when "2"
-                puts "More info on candidate 2 ..."
-            when "list"
+            if input.to_i > 0 
+                the_candidate = @candidates[input.to_i-1]
+                puts puts "#{the_candidate.name} - #{the_candidate.party}"
+            elsif input == "list"
                 list_candidates
             else
                 puts "What do you mean? Please choose a candidate's number, list, or exit."
