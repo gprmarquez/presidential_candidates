@@ -69,19 +69,25 @@ class PresidentialCandidates::CLI
             sleep(1)
             learn_more(candidate)
         when "age", "1"
+            puts
             puts candidate.age
             learn_more(candidate)
         when "party", "2"
+            puts
             puts candidate.party
             learn_more(candidate)
         when "quote", "3"
+            puts
             puts candidate.quote
             learn_more(candidate)
         when "menu", "4"
+            puts
             menu
         when "exit","5"
+            puts
             goodbye
         else
+            puts
             puts "Please choose a digit from the list [1-5]."
             learn_more(candidate)
         end
