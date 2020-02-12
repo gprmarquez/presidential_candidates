@@ -16,13 +16,6 @@ class PresidentialCandidates::CLI
         candidates_array = PresidentialCandidates::Candidate.scrape_entity
         PresidentialCandidates::Candidate.create_from_collection(candidates_array)
     end
-
-    # def add_attributes_to_candidates
-    #     PresidentialCandidates::Candidate.all.each do |candidate|
-    #       attributes = PresidentialCandidates::Candidate.scrape_entity
-    #       student.add_student_attributes(attributes)
-    #     end
-    # end
     
     def list_candidates
         PresidentialCandidates::Candidate.list
@@ -93,13 +86,7 @@ class PresidentialCandidates::CLI
             learn_more(candidate)
         end
     end
-#name
-    #party
-    #status
-    #age
-    #if available, quote
-    #stances 
-    #link to profile
+
     def goodbye
         puts "\nPlease vote wisely!"
         puts 

@@ -27,15 +27,6 @@ class PresidentialCandidates::Candidate
         @@all
     end
 
-    #what do I want to scrape?
-    #name
-    #party
-    #status
-    #age
-    #if available, quote
-    #stances 
-    #link to profile
-
     def self.scrape_entity
         doc = Nokogiri::HTML(open("https://www.nytimes.com/interactive/2019/us/politics/2020-presidential-candidates.html"))
         candidates = []
