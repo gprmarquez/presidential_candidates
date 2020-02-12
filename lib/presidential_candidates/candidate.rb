@@ -1,5 +1,5 @@
 class PresidentialCandidates::Candidate 
-    attr_accessor :name, :age, :party
+    attr_accessor :name, :age, :party, :quote
 
     @@all = []
 
@@ -42,7 +42,9 @@ class PresidentialCandidates::Candidate
         doc.css("div.g-info.g-balance").each do |profile|
             candidate_name = profile.css("div.g-name").text.split(',').first
             candidate_age = profile.css("span.g-age").text.gsub!(/([,])/,'').strip
-            candidates << {name: candidate_name, age: candidate_age}
+            candidate_party = profile.css("div.g-small-note").text
+            candidate_quote = profile.css("div.g-quote").text
+            candidates << {name: candidate_name, age: candidate_age, party: candidate_party, quote: candidate_quote}
         end
         candidates
     end

@@ -17,12 +17,12 @@ class PresidentialCandidates::CLI
         PresidentialCandidates::Candidate.create_from_collection(candidates_array)
     end
 
-    def add_attributes_to_candidates
-        PresidentialCandidates::Candidate.all.each do |candidate|
-          attributes = PresidentialCandidates::Candidate.scrape_entity
-          student.add_student_attributes(attributes)
-        end
-    end
+    # def add_attributes_to_candidates
+    #     PresidentialCandidates::Candidate.all.each do |candidate|
+    #       attributes = PresidentialCandidates::Candidate.scrape_entity
+    #       student.add_student_attributes(attributes)
+    #     end
+    # end
     
     def list_candidates
         PresidentialCandidates::Candidate.list
@@ -39,9 +39,10 @@ class PresidentialCandidates::CLI
 
         input = gets.strip.downcase
             if input.to_i > 0 && input.to_i < PresidentialCandidates::Candidate.all.length+1
-                puts PresidentialCandidates::Candidate.all[input.to_i-1].name
+                candidate = PresidentialCandidates::Candidate.all[input.to_i-1]
+                puts candidate.name
                 puts "What would you like to know about the candidate mentioned above?\n"
-                learn_more
+                learn_more(candidate)
                 break
             elsif input.to_i > PresidentialCandidates::Candidate.all.length
                 puts "You entered #{input}. There are no candidates assigned to that number."
@@ -58,37 +59,38 @@ class PresidentialCandidates::CLI
         end
     end
 
-    def learn_more
+    def learn_more(candidate)
         puts
-        puts "Enter one of the following:\n
+        puts "Enter one of the following for #{candidate.name}:\n
         1. Age\n
         2. Party\n
         3. Quote (If Available)\n
-        4. Stances\n
-        5. Link to Profile\n
-        6. Back to menu\n
-        7. Exit Application"
+        4. Back to menu\n
+        5. Exit Application"
         puts
         input = nil
         input = gets.strip.downcase
-        case answer = input.to_i
-        when answer = 0
-            puts "Invalid entry."
-            learn_more
-        when answer = 1
-            puts "age"
-        when answer = 2
-            puts "party"
-        when answer = 3
-            puts "quote"
-        when answer = 4
-            puts "stances"
-        when answer = 5
-            puts "link"
-        when answer = 6
+        case input 
+        when input = 0
+            puts "Invalid entry. Please try again."
+            sleep(1)
+            learn_more(candidate)
+        when "age", "1"
+            puts candidate.age
+            learn_more(candidate)
+        when "party", "2"
+            puts candidate.party
+            learn_more(candidate)
+        when "quote", "3"
+            puts candidate.quote
+            learn_more(candidate)
+        when "menu", "4"
             menu
-        when answer = 7
+        when "exit","5"
             goodbye
+        else
+            puts "Please choose a digit from the list [1-5]."
+            learn_more(candidate)
         end
     end
 #name
