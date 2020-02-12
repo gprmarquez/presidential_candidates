@@ -9,5 +9,5 @@ The program will be interactive and allow the user to navigate through the infor
 The program will only scrape once, and assign the different attributes to each object, per candidate.
 
 The link to be used is the following:
-https://www.theatlantic.com/politics/archive/2020/01/2020-candidates-president-guide/582598/
+https://www.nytimes.com/interactive/2019/us/politics/2020-presidential-candidates.html
 
