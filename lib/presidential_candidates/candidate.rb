@@ -17,10 +17,14 @@ class PresidentialCandidates::Candidate
     end
 
     def self.list
-        puts "Presidential Candidates:"
+        puts "Presidential Candidates:\n"
         @@all.each.with_index(1) do |candidate, i|
             puts "#{i}. #{candidate.name}"
         end
+    end
+
+    def self.all
+        @@all
     end
 
     #what do I want to scrape?
