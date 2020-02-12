@@ -1,36 +1,45 @@
 class PresidentialCandidates::Candidate 
-    attr_accessor :name, :party
+    attr_accessor :name, :age, :party
+
+    @@all = []
+
+    def initialize(candidate_hash)
+        candidate_hash.each do |attribute, value|
+          self.send("#{attribute}=", value)
+        end
+        @@all << self
+    end
+
+    def self.create_from_collection(candidates_array)
+        candidates_array.each do |candidate_hash|
+            PresidentialCandidates::Candidate.new(candidate_hash)
+        end
+    end
 
     def self.list
-        # should return a bunch of instances of candidates
         puts "Presidential Candidates:"
-        #this will scrape from the website with the list of the candidates
-        # candidate_1 = self.new
-        # candidate_1.name = "Bernie"
-        # candidate_1.party = "Liberator"
-
-        # candidate_2 = self.new
-        # candidate_2.name = "Bernie 2"
-        # candidate_2.party = "Liberal"
-
-        # [candidate_1, candidate_2]
-        self.scrape_candidates
+        @@all.each.with_index(1) do |candidate, i|
+            puts "#{i}. #{candidate.name}"
+        end
     end
 
-    def self.scrape_candidates
-        candidates = []
-
-        candidates << self.scrape_entity
-
-        #go to the website
-        #extract properties
-        #instantiate candidate
-
-        candidates
-    end
+    #what do I want to scrape?
+    #name
+    #party
+    #status
+    #age
+    #if available, quote
+    #stances 
+    #link to profile
 
     def self.scrape_entity
-        doc = Nokogiri::HTML(open("https://www.theatlantic.com/politics/archive/2020/02/2020-candidates-president-guide/582598/"))
-        binding.pry
+        doc = Nokogiri::HTML(open("https://www.nytimes.com/interactive/2019/us/politics/2020-presidential-candidates.html"))
+        candidates = []
+        doc.css("div.g-info.g-balance").each do |profile|
+            candidate_name = profile.css("div.g-name").text.split(',').first
+            candidate_age = profile.css("span.g-age").text.gsub!(/([,])/,'').strip
+            candidates << {name: candidate_name, age: candidate_age}
+        end
+        candidates
     end
 end
